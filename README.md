@@ -4,6 +4,17 @@
 - Some track segments are also given as clues.
 - Each puzzle has exactly one solution.
 
+## How it is solved?
+Firstly the puzzle is parsed from the text-file. It is transformed to a grid, a list of the rows.
+Afterward it is created different usefull structures: List of columns, list of rows where each element also contains pointers to the adjecent elements and a list of all possible 2x2 blocks in the grid.
+
+Then it will run a brute force algorithm towards the grid. Placing on track at a time, starting from the upper left field. It will then place either a track or leave the field empty. If the track placed breaks a rule with the element over it or to the left it will try another track. If it validates it will move on to the next element.
+For example if a track enters/exits in the "noth" but the track over it does not enter/exit in the "south" it breaks a rule.
+
+Each time a full row has been filled it will validate the amount of elements according to the clue for that row. The same with columns.
+
+Each time it breaks a rule Prolog will backtrack and try a new combination of elements. This means that the code can solve almost any puzzle, but it will spend a lot of time doing so. The work with this program was to optimize it to be able to detect impossible solutions as early as possible.
+
 ## Run the program
 In the unsolved.txt file you should write some unsolved solvable puzzle. 
 
